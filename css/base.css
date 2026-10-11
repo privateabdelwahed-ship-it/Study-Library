@@ -1,0 +1,219 @@
+/* Base: reset, type, links, buttons, form controls. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem; /* never below 16px */
+  font-weight: 500;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+#app { flex: 1; }
+
+img, canvas, svg { display: block; max-width: 100%; }
+
+/* Headlines: heavy grotesque, uppercase, tight */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+/* Arabic has no uppercase; use its heaviest cut instead */
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3 { font-weight: 800; }
+
+p { margin-block: 0.75em; }
+
+/* Content links get a yellow highlighter underline */
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--brand);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 3px;
+}
+a:hover { text-decoration-color: var(--ink); }
+
+/* Loud text selection */
+::selection {
+  background: var(--highlight);
+  color: #161616;
+}
+
+/* Visible, chunky focus ring for keyboard users */
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Buttons: pills with black outlines and hard shadows */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem; /* 48px */
+  padding: 0.6rem 1.6rem;
+  font: inherit;
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s var(--ease-out), box-shadow 0.15s var(--ease-out),
+              background 0.15s ease, color 0.15s ease;
+}
+.btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-md);
+  color: var(--ink);
+  text-decoration: none;
+}
+.btn:active {
+  transform: translate(0, 0);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--on-primary);
+  box-shadow: var(--shadow-sm);
+}
+.btn-primary:hover {
+  background: var(--primary-deep);
+  border-color: var(--primary-deep);
+  color: var(--on-primary);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-danger {
+  background: transparent;
+  border-color: var(--danger);
+  color: var(--danger);
+}
+.btn-danger:hover {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: #fff;
+}
+
+/* Round icon buttons (toolbar, toggles) */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  padding: 0;
+  color: var(--ink);
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: transform 0.15s var(--ease-out), box-shadow 0.15s var(--ease-out),
+              background 0.15s ease, color 0.15s ease;
+}
+.icon-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-sm);
+}
+.icon-btn[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+.icon-btn svg { inline-size: 1.15rem; block-size: 1.15rem; }
+
+/* Text inputs: chunky pills */
+.input, input[type="text"], input[type="search"], input[type="number"] {
+  font: inherit;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-pill);
+  padding: 0.6rem 1.1rem;
+  min-height: 3rem;
+  inline-size: 100%;
+}
+.input::placeholder { color: var(--faint); }
+
+/* Small section labels with a yellow square bullet */
+.section-label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-block: 0 1rem;
+}
+.section-label::before {
+  content: "";
+  inline-size: 0.9rem;
+  block-size: 0.9rem;
+  background: var(--brand);
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  flex: none;
+}
+
+/* Small pill badges ("Feature", counts, status) */
+.pill-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--card);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-pill);
+  padding: 0.35rem 0.9rem;
+  white-space: nowrap;
+}
+.pill-badge--solid { background: var(--ink); color: var(--paper); }
+.pill-badge--yellow { background: var(--brand); color: #161616; border-color: #161616; }
+
+/* Accessibility: skip link */
+.skip-link {
+  position: absolute;
+  inset-block-start: -100px;
+  inset-inline-start: 1rem;
+  z-index: 100;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 800;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+}
+.skip-link:focus { inset-block-start: 1rem; }
+
+/* Mirror directional icons in RTL */
+[dir="rtl"] .flip-rtl { transform: scaleX(-1); }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Library</title>
+  <meta name="description" content="A tidy library of third-year course material.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23FFC800'/%3E%3Ctext x='32' y='45' font-family='Arial Black, Arial, sans-serif' font-size='36' font-weight='900' text-anchor='middle' fill='%23161616'%3ES%3C/text%3E%3C/svg%3E">
+
+  <!-- Type: Archivo (grotesque, 400–900) + Noto Sans Arabic (400–800) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,900&family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/reader.css">
+  <link rel="stylesheet" href="css/motion.css">
+  <link rel="stylesheet" href="css/editor.css">
+
+  <!-- PDF.js (rendering engine only — the reader UI is our own, see js/lib/pdf-reader.js) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#app" id="skip-link">Skip to content</a>
+  <div id="site-header"></div>
+  <main id="app" tabindex="-1"></main>
+  <div id="site-footer"></div>
+
+  <script>
+    // Point PDF.js at its worker. Kept here (not in a module) so it runs
+    // before any page tries to open a PDF.
+    if (window.pdfjsLib) {
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+    }
+  </script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

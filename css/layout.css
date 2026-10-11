@@ -1,0 +1,212 @@
+/* Layout: page container, header, footer, grids. */
+
+.container {
+  inline-size: 100%;
+  max-inline-size: 72rem; /* 1152px */
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+.page { padding-block: 2.5rem 4rem; }
+
+/* Page title block: badge overline, heavy headline, thick black rule */
+.page-head { margin-block-end: 2rem; }
+.page-head .overline {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--brand);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-pill);
+  padding: 0.3rem 0.9rem;
+  margin-block-end: 1rem;
+}
+.page-head h1 {
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  margin-block-end: 0.75rem;
+}
+.page-head .rule-double {
+  border-block-start: 4px solid var(--ink);
+  margin-block-start: 1.25rem;
+}
+.page-head .lede {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--muted);
+  max-inline-size: 44rem;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  background: var(--card);
+  border-block-end: 2px solid var(--ink);
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 50;
+  transition: box-shadow 0.25s ease;
+}
+/* A touch more presence once the page scrolls (toggled from app.js) */
+.site-header.is-scrolled {
+  box-shadow: 0 8px 24px -12px rgba(22, 22, 22, 0.3);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 0.8rem;
+  flex-wrap: wrap;
+}
+.brand {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  font-size: 1.45rem;
+  color: var(--ink);
+  text-decoration: none;
+  margin-inline-end: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.brand:hover { color: var(--ink); text-decoration: none; }
+/* Yellow square mark next to the wordmark */
+.brand .brand-mark {
+  inline-size: 0.72em;
+  block-size: 0.72em;
+  background: var(--brand);
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  flex: none;
+  transition: transform 0.2s var(--ease-out);
+}
+.brand:hover .brand-mark { transform: rotate(-12deg); }
+
+.main-nav { display: flex; gap: 0.5rem; }
+.main-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 700;
+  padding: 0.5rem 1.1rem;
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.main-nav a:hover { background: var(--highlight-soft); text-decoration: none; }
+.main-nav a[aria-current="page"] {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+[data-reading-theme="dark"] .main-nav a[aria-current="page"] {
+  background: var(--brand);
+  color: #161616;
+  border-color: var(--brand);
+}
+
+.header-search { flex: 1 1 12rem; max-inline-size: 22rem; }
+.header-search form { position: relative; }
+.header-search input { padding-inline-end: 3rem; }
+.header-search button {
+  position: absolute;
+  inset-inline-end: 0.3rem;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  inline-size: 2.3rem;
+  block-size: 2.3rem;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.header-search button:hover {
+  background: var(--brand);
+  color: #161616;
+  border-color: #161616;
+}
+.header-search svg { inline-size: 1.1rem; block-size: 1.1rem; }
+
+.header-tools { display: flex; align-items: center; gap: 0.5rem; }
+.lang-switch {
+  font: inherit;
+  font-weight: 800;
+  font-size: 0.9rem;
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-pill);
+  color: var(--ink);
+  cursor: pointer;
+  min-height: 2.75rem;
+  padding-inline: 1rem;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.lang-switch:hover { background: var(--brand); color: #161616; border-color: #161616; }
+
+/* ---------- Footer: black band ---------- */
+.site-footer {
+  background: #161616;
+  color: #fff;
+  border-block-start: 2px solid #161616;
+  margin-block-start: auto;
+}
+[data-reading-theme="dark"] .site-footer {
+  background: #000;
+  border-block-start-color: #3d3d3d;
+}
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 1.75rem;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #d9d9d9;
+}
+.footer-inner strong { color: #fff; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; }
+.footer-inner .colophon {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+.footer-inner nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+}
+.footer-inner nav a:hover { color: var(--brand); text-decoration: none; }
+
+/* ---------- Grids ---------- */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr));
+  gap: 1.75rem;
+}
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16.5rem), 1fr));
+  gap: 1.5rem;
+}
+
+/* Two-column reading layout: reader first, panel below on phones */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+@media (min-width: 56rem) {
+  .split { grid-template-columns: minmax(0, 1fr) 19rem; }
+}

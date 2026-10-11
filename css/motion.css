@@ -1,0 +1,60 @@
+/* Motion: light and tasteful, never heavy.
+   Entrance animations + staggered cards + a slow decorative float.
+   All disabled when the user prefers reduced motion.
+   translateY is direction-neutral, so RTL is safe. */
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pageIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(2deg); }
+}
+
+/* Every page fades in gently on navigation */
+.page { animation: pageIn 0.35s ease-out both; }
+
+/* Hero children settle in one after another */
+.hero-inner > * { animation: rise 0.6s var(--ease-out) both; }
+.hero-inner > *:nth-child(2) { animation-delay: 0.08s; }
+.hero-inner > *:nth-child(3) { animation-delay: 0.16s; }
+.hero-inner > *:nth-child(4) { animation-delay: 0.24s; }
+.hero-inner > *:nth-child(5) { animation-delay: 0.32s; }
+
+/* Slow drift on the hero ring decoration */
+.deco-ring { animation: floaty 9s ease-in-out infinite; }
+
+/* Staggered entrances: semester cards */
+.grid-2 > * { animation: rise 0.55s var(--ease-out) both; }
+.grid-2 > *:nth-child(2) { animation-delay: 0.07s; }
+.grid-2 > *:nth-child(3) { animation-delay: 0.14s; }
+.grid-2 > *:nth-child(4) { animation-delay: 0.21s; }
+.grid-2 > *:nth-child(5) { animation-delay: 0.28s; }
+.grid-2 > *:nth-child(6) { animation-delay: 0.35s; }
+
+/* Staggered entrances: module index cards */
+.grid-cards > * { animation: rise 0.5s var(--ease-out) both; }
+.grid-cards > *:nth-child(2) { animation-delay: 0.05s; }
+.grid-cards > *:nth-child(3) { animation-delay: 0.1s; }
+.grid-cards > *:nth-child(4) { animation-delay: 0.15s; }
+.grid-cards > *:nth-child(5) { animation-delay: 0.2s; }
+.grid-cards > *:nth-child(6) { animation-delay: 0.25s; }
+.grid-cards > *:nth-child(7) { animation-delay: 0.3s; }
+.grid-cards > *:nth-child(n+8) { animation-delay: 0.35s; }
+
+/* Respect users who prefer no motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}

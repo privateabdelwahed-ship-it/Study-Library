@@ -1,0 +1,663 @@
+/* Components: hero, strip, cards, rows, pills, tags, notices. */
+
+/* ---------- Section titles: first word on yellow ---------- */
+.sec-title {
+  font-size: clamp(1.7rem, 4.5vw, 2.8rem);
+  margin-block: 0 1.75rem;
+}
+.sec-title .hl {
+  display: inline-block;
+  background: var(--brand);
+  color: #161616;
+  padding: 0.02em 0.35em 0.06em;
+  margin-inline-end: 0.12em;
+  transform: rotate(-1deg);
+}
+
+/* ---------- HERO: full-bleed yellow ---------- */
+.hero {
+  background: var(--brand);
+  border-block-end: 2px solid #161616;
+  position: relative;
+  overflow: hidden;
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(3rem, 8vw, 5.5rem);
+}
+.hero .pill-badge {
+  background: #fff;
+  color: #161616;
+  border-color: #161616;
+  margin-block-end: 1.5rem;
+}
+.hero-title {
+  font-size: clamp(3.6rem, 13vw, 9rem);
+  line-height: 0.94;
+  margin-block-end: 1.25rem;
+  color: #161616;
+}
+.hero-title .w1 { display: block; color: #fff; }
+.hero-title .w2 { display: block; color: #161616; }
+.hero-tag {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  letter-spacing: -0.01em;
+  color: #161616;
+  margin-block-end: 0.4rem;
+}
+.hero-sub {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #161616;
+  margin-block-end: 1.75rem;
+}
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 1rem; }
+.hero-ctas .btn-primary {
+  background: #161616;
+  border-color: #161616;
+  color: #fff;
+}
+.hero-ctas .btn-primary:hover {
+  background: #000;
+  border-color: #000;
+  color: #fff;
+}
+.hero-ctas .btn:not(.btn-primary) {
+  background: #fff;
+  border-color: #161616;
+  color: #161616;
+}
+/* CSS-only decorations: outlined ring, dot grid, slash */
+.hero-deco { position: absolute; inset: 0; pointer-events: none; }
+.deco-ring {
+  position: absolute;
+  inset-block-start: -5rem;
+  inset-inline-end: -5rem;
+  inline-size: 24rem;
+  block-size: 24rem;
+  border: 3px solid #161616;
+  border-radius: 50%;
+  opacity: 0.22;
+}
+.deco-dots {
+  position: absolute;
+  inset-block-end: 2.5rem;
+  inset-inline-start: 5%;
+  inline-size: 12rem;
+  block-size: 6rem;
+  opacity: 0.3;
+  background-image: radial-gradient(#161616 1.6px, transparent 1.7px);
+  background-size: 1.1rem 1.1rem;
+}
+.deco-slash {
+  position: absolute;
+  inset-block-start: 16%;
+  inset-inline-start: 48%;
+  inline-size: 7rem;
+  block-size: 1.3rem;
+  background: #161616;
+  border-radius: 2px;
+  transform: rotate(-18deg);
+}
+@media (max-width: 40rem) {
+  .deco-ring { inline-size: 13rem; block-size: 13rem; inset-block-start: -3rem; inset-inline-end: -3rem; }
+  .deco-slash { display: none; }
+}
+
+/* ---------- Feature strip: black band, 3 columns ---------- */
+.strip {
+  background: #161616;
+  color: #fff;
+  border-block-end: 2px solid #161616;
+}
+[data-reading-theme="dark"] .strip { background: #000; }
+.strip-inner {
+  display: grid;
+  gap: 2rem;
+  padding-block: 2.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+}
+.strip-item .pill-badge {
+  background: var(--brand);
+  color: #161616;
+  border-color: var(--brand);
+  margin-block-end: 1rem;
+}
+.strip-item h3 { color: #fff; font-size: 1.3rem; margin-block-end: 0.5rem; }
+.strip-item p { color: #d9d9d9; margin: 0; font-size: 1rem; }
+
+/* ---------- Semester cards: big yellow blocks ---------- */
+.sem-card {
+  background: var(--brand);
+  color: #161616;
+  border: 2px solid #161616;
+  border-radius: 18px;
+  box-shadow: var(--shadow-md);
+  padding: 2rem 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  min-block-size: 24rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.18s var(--ease-out), box-shadow 0.18s var(--ease-out);
+}
+section.sem-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--shadow-lift);
+}
+/* Oversized ghost numeral behind the card */
+.sem-card::after {
+  content: attr(data-glyph);
+  position: absolute;
+  inset-block-end: -3rem;
+  inset-inline-end: -0.5rem;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 12rem;
+  line-height: 1;
+  color: #161616;
+  opacity: 0.08;
+  pointer-events: none;
+}
+.sem-overline {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.sem-glyph {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(3.4rem, 6vw, 4.8rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #161616;
+  text-decoration: none;
+  margin-block: 0.4rem 0.2rem;
+}
+a.sem-glyph:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 5px;
+  text-underline-offset: 6px;
+}
+.sem-sub { font-weight: 600; margin-block-end: 1.25rem; }
+/* Table of contents: black type, one click to any module */
+.sem-card .toc {
+  border-block-start: 2px solid #161616;
+  margin-block-start: 0.25rem;
+}
+.toc { list-style: none; padding: 0; margin: 0; }
+.toc li { border-block-end: 2px dotted rgba(22, 22, 22, 0.35); }
+.toc li:last-child { border-block-end: 0; }
+.toc a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding-block: 0.55rem;
+  color: #161616;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.98rem;
+  transition: padding-inline-start 0.15s var(--ease-out);
+}
+.toc a:hover { padding-inline-start: 0.4rem; }
+.toc .toc-num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.85rem;
+  opacity: 0.6;
+  min-inline-size: 1.6rem;
+}
+
+/* ---------- Module index cards ---------- */
+.index-card {
+  --edge: var(--sw-charcoal);
+  display: block;
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-block-start: 6px solid var(--edge);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.35rem 1.2rem;
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.18s var(--ease-out), box-shadow 0.18s var(--ease-out);
+}
+.index-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-md);
+  color: var(--ink);
+  text-decoration: none;
+}
+.index-card .card-num {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--ink);
+}
+.index-card h3 {
+  font-size: 1.18rem;
+  margin-block: 0.6rem 0.3rem;
+}
+.index-card .card-teacher { color: var(--muted); font-size: 0.95rem; font-weight: 500; }
+.index-card .card-meta {
+  margin-block-start: 0.9rem;
+  padding-block-start: 0.7rem;
+  border-block-start: 2px solid var(--ink);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* ---------- Lesson rows ---------- */
+.ruled-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-block-start: 2px solid var(--ink);
+}
+.ruled-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 1rem;
+  padding-inline: 0.25rem;
+  border-block-end: 2px solid var(--ink);
+  transition: background 0.12s ease;
+}
+.ruled-row:hover { background: var(--highlight-soft); }
+.ruled-row .row-main { flex: 1; min-inline-size: 0; }
+.ruled-row .row-title {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+.ruled-row .row-title:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--brand);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 3px;
+}
+.ruled-row .row-sub {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--muted);
+  margin-block-start: 0.3rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.8rem;
+  align-items: center;
+}
+/* Lesson type as a small outlined pill */
+.type-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-pill);
+  padding: 0.15rem 0.7rem;
+  white-space: nowrap;
+}
+/* "New" tag: black pill, yellow text */
+.tag-new {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand);
+  background: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-pill);
+  padding: 0.15rem 0.7rem;
+  white-space: nowrap;
+}
+[data-reading-theme="dark"] .tag-new {
+  background: #000;
+  border-color: var(--brand);
+}
+.row-actions { display: flex; gap: 0.5rem; flex: none; }
+.row-actions .icon-btn { inline-size: 2.5rem; block-size: 2.5rem; }
+.row-actions .icon-btn[aria-pressed="true"].is-bookmark {
+  background: var(--brand);
+  border-color: #161616;
+  color: #161616;
+}
+.row-actions .icon-btn[aria-pressed="true"].is-done {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+/* ---------- Chapter headings ---------- */
+.chapter-head {
+  font-size: 1.5rem;
+  margin-block: 2.25rem 0.75rem;
+  padding-block-end: 0.5rem;
+  border-block-end: 4px solid var(--brand);
+}
+.chapter-head:first-of-type { margin-block-start: 0; }
+
+/* ---------- Type filter: pills ---------- */
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-block: 0 1.75rem;
+}
+.filter-row button {
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  background: var(--card);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-pill);
+  padding: 0.45rem 1.15rem;
+  cursor: pointer;
+  transition: transform 0.15s var(--ease-out), box-shadow 0.15s var(--ease-out),
+              background 0.15s ease, color 0.15s ease;
+}
+.filter-row button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-sm);
+}
+.filter-row button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--paper);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-block-end: 1.5rem;
+}
+.breadcrumb a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--brand);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.breadcrumb .sep { font-weight: 900; }
+.breadcrumb [aria-current="page"] {
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  padding: 0.15rem 0.85rem;
+}
+
+/* ---------- File cards (office files, downloads) ---------- */
+/* File cards stack vertically: icon + name on top, actions full-width
+   below. Built for the narrow lesson sidebar and for phones — the name
+   always gets a full row, so it never breaks letter-by-letter. */
+.file-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "icon meta"
+    "actions actions";
+  gap: 0.75rem 0.9rem;
+  align-items: center;
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  box-shadow: var(--shadow-sm);
+}
+.file-card .file-icon {
+  grid-area: icon;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink);
+  color: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+}
+.file-card .file-icon svg { inline-size: 1.4rem; block-size: 1.4rem; }
+.file-card .file-meta { grid-area: meta; min-width: 0; }
+.file-card .file-name { font-weight: 800; overflow-wrap: anywhere; }
+.file-card .file-sub { font-size: 0.88rem; color: var(--muted); }
+.file-card .file-actions { grid-area: actions; display: flex; gap: 0.5rem; align-items: center; }
+.file-card .file-actions .btn { flex: 1; justify-content: center; padding-block: 0.6rem; font-size: 0.92rem; }
+.file-card .file-actions .icon-btn { flex: none; }
+
+/* ---------- Notices & empty states ---------- */
+.notice {
+  border: 2px solid var(--ink);
+  border-inline-start: 8px solid var(--brand);
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.4rem;
+  box-shadow: var(--shadow-sm);
+}
+.notice.is-error { border-inline-start-color: var(--danger); }
+.notice h2, .notice h3 { font-size: 1.2rem; margin-block-end: 0.4rem; }
+.notice p { color: var(--muted); margin-block: 0.4em; font-weight: 500; }
+.notice p:last-child { margin-block-end: 0; }
+
+.empty {
+  text-align: center;
+  padding-block: 3.5rem;
+  color: var(--muted);
+}
+.empty .empty-mark {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 3rem;
+  color: var(--ink);
+  display: block;
+  margin-block-end: 0.75rem;
+}
+.empty p { max-inline-size: 30rem; margin-inline: auto; font-weight: 500; }
+
+/* ---------- Continue reading: black card, yellow shadow ---------- */
+.continue-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  background: #161616;
+  color: #fff;
+  border: 2px solid #161616;
+  border-radius: var(--radius);
+  box-shadow: 4px 4px 0 var(--brand);
+  padding: 1.25rem 1.5rem;
+  margin-block-end: 2.5rem;
+  text-decoration: none;
+  transition: transform 0.18s var(--ease-out), box-shadow 0.18s var(--ease-out);
+}
+[data-reading-theme="dark"] .continue-card { background: #000; }
+a.continue-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--brand);
+  color: #fff;
+  text-decoration: none;
+}
+.continue-card .pill-badge {
+  background: var(--brand);
+  color: #161616;
+  border-color: var(--brand);
+}
+.continue-card .continue-title { font-weight: 800; font-size: 1.2rem; color: #fff; }
+.continue-card .continue-sub { font-size: 0.9rem; font-weight: 500; color: #d9d9d9; }
+
+/* ---------- Announcements ---------- */
+.announce { border-block-start: 2px solid var(--ink); }
+.announce-item {
+  padding-block: 1.25rem;
+  border-block-end: 2px solid var(--ink);
+  display: grid;
+  gap: 0.3rem;
+}
+.announce-item .announce-date {
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.announce-item .announce-date::before {
+  content: "";
+  display: inline-block;
+  inline-size: 0.7rem;
+  block-size: 0.7rem;
+  background: var(--brand);
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+  margin-inline-end: 0.5rem;
+}
+.announce-item h3 { font-size: 1.15rem; }
+.announce-item p { color: var(--muted); margin-block: 0.3em 0; font-size: 0.98rem; font-weight: 500; white-space: pre-line; }
+
+/* Files attached to an announcement: download pills with a bold outline. */
+.ann-files { list-style: none; padding: 0; margin: 0.9rem 0 0; display: grid; gap: 0.5rem; }
+.ann-files li { display: flex; align-items: center; gap: 0.5rem; }
+.ann-file {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  background: var(--card); color: var(--ink);
+  border: 2px solid var(--ink); border-radius: var(--radius-pill);
+  padding: 0.4rem 1rem; font-weight: 700; font-size: 0.9rem; text-decoration: none;
+  transition: transform 0.15s var(--ease-out), box-shadow 0.15s var(--ease-out);
+}
+.ann-file:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-sm); }
+.ann-file svg { inline-size: 1rem; block-size: 1rem; flex: none; }
+.ann-file-size { font-weight: 500; color: var(--muted); font-size: 0.82rem; }
+
+/* Links attached to an announcement: same pill language as files. */
+.ann-addlink { margin-block: 0.75rem 0.5rem; }
+.ann-links { list-style: none; padding: 0; margin: 0.9rem 0 0; display: grid; gap: 0.5rem; }
+.ann-links li { display: flex; align-items: center; gap: 0.5rem; }
+.ann-link {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  background: var(--paper); color: var(--ink);
+  border: 2px solid var(--ink); border-radius: var(--radius-pill);
+  padding: 0.4rem 1rem; font-weight: 700; font-size: 0.9rem; text-decoration: none;
+  transition: transform 0.15s var(--ease-out), box-shadow 0.15s var(--ease-out);
+}
+.ann-link:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-sm); background: var(--accent); color: var(--ink); }
+.ann-link svg { inline-size: 1rem; block-size: 1rem; flex: none; }
+
+/* ---------- Side panel blocks ---------- */
+.panel-block {
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-block-end: 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+.panel-block h2 {
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  margin-block-end: 0.9rem;
+}
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.5rem;
+  border-block-end: 2px dotted var(--border);
+  font-size: 0.95rem;
+}
+.detail-row:last-child { border-block-end: 0; }
+.detail-row dt { color: var(--muted); font-weight: 500; }
+.detail-row dd { margin: 0; text-align: end; font-weight: 700; }
+.mini-list { list-style: none; padding: 0; margin: 0; }
+.mini-list li { border-block-end: 2px dotted var(--border); }
+.mini-list li:last-child { border-block-end: 0; }
+.mini-list a {
+  display: block;
+  padding-block: 0.6rem;
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.97rem;
+}
+.mini-list a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--brand);
+  text-decoration-thickness: 3px;
+}
+.mini-list .is-current { font-weight: 800; }
+
+/* ---------- Prev / next as pill buttons ---------- */
+.prev-next {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-block-start: 2.5rem;
+  padding-block-start: 1.5rem;
+  border-block-start: 2px solid var(--ink);
+}
+.prev-next a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--ink);
+  font-weight: 700;
+  max-inline-size: 45%;
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-pill);
+  padding: 0.7rem 1.2rem;
+  transition: transform 0.15s var(--ease-out), box-shadow 0.15s var(--ease-out);
+}
+.prev-next a:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-sm);
+  color: var(--ink);
+  text-decoration: none;
+}
+.prev-next .pn-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.prev-next .pn-next { text-align: end; margin-inline-start: auto; }
+.prev-next svg { inline-size: 1.1rem; block-size: 1.1rem; flex: none; }
+
+/* Muted device note shown wherever we store things locally */
+.device-note {
+  font-size: 0.85rem;
+  color: var(--faint);
+  font-style: italic;
+}
+
+/* Lesson action row (bookmark / done on the lesson page) */
+.lesson-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-block: 1rem 0;
+}
+.toggle-btn[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+  box-shadow: var(--shadow-sm);
+}

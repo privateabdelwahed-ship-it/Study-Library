@@ -1,0 +1,85 @@
+/* ============================================================
+   Study Library — design tokens
+   Bold yellow/black/white visual language, adapted from an
+   energetic course-promo reference. Every color comes from a
+   variable below; dark reading mode inverts boldly.
+   To restyle the whole site, edit this file only.
+   ============================================================ */
+
+:root {
+  /* Loud, high-contrast surfaces */
+  --paper: #FFFFFF;          /* page background */
+  --card: #FFFFFF;           /* raised surface: cards, toolbar, header */
+  --border: #161616;         /* black outlines everywhere */
+  --border-strong: #161616;
+
+  /* Ink */
+  --ink: #161616;            /* main text, near-black */
+  --muted: #5c5c5c;          /* secondary text */
+  --faint: #8a8a8a;          /* captions, the quietest text */
+
+  /* Brand */
+  --brand: #FFC800;          /* saturated yellow — heroes, highlights */
+  --primary: #161616;        /* black buttons */
+  --primary-deep: #000000;   /* black button hover */
+  --on-primary: #FFFFFF;     /* text on black buttons */
+  --accent: #FFC800;         /* yellow accents */
+  --highlight: #FFC800;      /* focus rings, selection, "New" tags */
+  --highlight-soft: #FFF3C4; /* pale yellow tint behind hovered rows */
+  --danger: #9C2F2A;         /* brick: errors, destructive actions */
+
+  /* Fixed swatch set for module color strips (data, not chrome) */
+  --sw-forest: #2F5D46;
+  --sw-terracotta: #BF5B33;
+  --sw-mustard: #D6A23A;
+  --sw-brick: #9C2F2A;
+  --sw-olive: #7B7A2F;
+  --sw-clay: #8C5A3C;
+  --sw-sage: #8AA17A;
+  --sw-charcoal: #3B3631;
+
+  /* Typography: Archivo everywhere; Noto Sans Arabic covers Arabic */
+  --font-display: "Archivo", "Noto Sans Arabic", system-ui, sans-serif;
+  --font-body: "Archivo", "Noto Sans Arabic", system-ui, sans-serif;
+
+  /* Shape: pills for controls, chunky cards for surfaces */
+  --radius: 14px;
+  --radius-pill: 999px;
+  --rule: 2px solid var(--border);
+
+  /* Reading */
+  --reading-size: 1.0625rem; /* 17px */
+  --reading-measure: 68ch;
+
+  /* Depth: hard offset shadows, never blurred glow */
+  --shadow-color: #161616;
+  --shadow-sm: 3px 3px 0 var(--shadow-color);
+  --shadow-md: 4px 4px 0 var(--shadow-color);
+  --shadow-lift: 6px 6px 0 var(--shadow-color);
+
+  /* Motion: snappy, with a wink of overshoot */
+  --ease-out: cubic-bezier(0.34, 1.25, 0.64, 1);
+}
+
+/* Bold inversion for dark reading mode: black surfaces, yellow pops. */
+[data-reading-theme="dark"] {
+  --paper: #161616;
+  --card: #212121;
+  --border: #3d3d3d;
+  --border-strong: #4a4a4a;
+
+  --ink: #FFFFFF;
+  --muted: #b5b5b5;
+  --faint: #8a8a8a;
+
+  --brand: #FFC800;          /* yellow accents pop on black */
+  --primary: #FFC800;        /* yellow buttons */
+  --primary-deep: #e6b400;
+  --on-primary: #161616;
+  --accent: #FFC800;
+  --highlight: #FFC800;
+  --highlight-soft: #3d330a;
+  --danger: #C96A60;
+
+  --shadow-color: #000000;
+}

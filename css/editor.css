@@ -1,0 +1,402 @@
+/* ============================================================
+   Edit mode UI: edit bar, toggle switch, modals, toasts, trash,
+   upload progress. Bold yellow/black language, logical properties
+   only, dark-mode aware through the shared tokens.
+   ============================================================ */
+
+/* ---------- thin black edit bar under the header ---------- */
+#edit-bar {
+  background: #161616;
+  color: #fff;
+  border-block-end: 3px solid var(--brand);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+.editbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  flex-wrap: wrap;
+  padding-block: 0.55rem;
+}
+.editbar-dot {
+  inline-size: 0.65rem;
+  block-size: 0.65rem;
+  border-radius: 50%;
+  background: var(--brand);
+  flex: none;
+  animation: blink 1.6s ease-in-out infinite;
+}
+@keyframes blink { 50% { opacity: 0.35; } }
+#edit-saved {
+  color: var(--brand);
+  font-weight: 800;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+#edit-saved.show { opacity: 1; }
+.editbar-spacer { flex: 1; }
+.editbar-link {
+  color: var(--brand);
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.editbar-exit {
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: var(--radius-pill);
+  font: inherit;
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.9rem;
+  cursor: pointer;
+}
+.editbar-exit:hover { background: #fff; color: #161616; }
+
+/* ---------- edit-mode toggle switch in the header ---------- */
+.edit-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 0.88rem;
+  user-select: none;
+}
+.edit-toggle input {
+  position: absolute;
+  opacity: 0;
+  inline-size: 1px;
+  block-size: 1px;
+}
+.edit-toggle .switch {
+  inline-size: 3rem;
+  block-size: 1.7rem;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-pill);
+  background: var(--card);
+  position: relative;
+  flex: none;
+  transition: background 0.2s ease;
+}
+.edit-toggle .switch::after {
+  content: "";
+  position: absolute;
+  inset-block: 2px;
+  inset-inline-start: 2px;
+  inline-size: calc(1.7rem - 8px);
+  border-radius: 50%;
+  background: var(--ink);
+  transition: transform 0.22s var(--ease-out);
+}
+.edit-toggle input:checked + .switch { background: var(--brand); }
+.edit-toggle input:checked + .switch::after {
+  transform: translateX(calc(3rem - 1.7rem - 2px));
+}
+[dir="rtl"] .edit-toggle input:checked + .switch::after {
+  transform: translateX(calc(-3rem + 1.7rem + 2px));
+}
+.edit-toggle input:focus-visible + .switch {
+  outline: 3px solid var(--highlight);
+  outline-offset: 2px;
+}
+
+/* ---------- modal ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 200;
+  animation: pageIn 0.18s ease-out;
+}
+.modal {
+  background: var(--card);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 18px;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.35);
+  inline-size: 100%;
+  max-inline-size: 34rem;
+  max-block-size: 92vh;
+  overflow: auto;
+}
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--brand);
+  color: #161616;
+  border-block-end: 2px solid #161616;
+  border-radius: 15px 15px 0 0;
+  position: sticky;
+  inset-block-start: 0;
+}
+.modal-head h2 { font-size: 1.35rem; }
+.modal-head .icon-btn {
+  border-color: #161616;
+  color: #161616;
+  background: transparent;
+}
+.modal form { padding: 1.25rem; display: grid; gap: 1rem; }
+.m-body { font-weight: 600; }
+.m-field { display: grid; gap: 0.4rem; font-weight: 700; font-size: 0.92rem; }
+.m-field textarea { border-radius: 14px; resize: vertical; }
+.m-hint { font-weight: 500; font-size: 0.82rem; color: var(--muted); }
+.m-check {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.m-check input {
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  accent-color: var(--brand);
+  flex: none;
+  cursor: pointer;
+}
+.swatches { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+.swatch {
+  inline-size: 2.6rem;
+  block-size: 2.6rem;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s var(--ease-out);
+}
+.swatch:hover { transform: scale(1.1); }
+.swatch[aria-pressed="true"] {
+  outline: 3px solid var(--brand);
+  outline-offset: 2px;
+}
+.modal-foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-block-start: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* ---------- toasts ---------- */
+.toasts {
+  position: fixed;
+  inset-block-end: 1.25rem;
+  inset-inline: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 300;
+  pointer-events: none;
+  padding-inline: 1rem;
+}
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #161616;
+  color: #fff;
+  border: 2px solid #161616;
+  border-radius: var(--radius-pill);
+  padding: 0.7rem 1.25rem;
+  font-weight: 800;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+  max-inline-size: 100%;
+  animation: rise 0.25s var(--ease-out);
+}
+.toast.out { opacity: 0; transform: translateY(8px); transition: opacity 0.3s, transform 0.3s; }
+.toast-check { color: var(--brand); font-weight: 900; font-size: 1.1rem; }
+.toast--error { background: var(--danger); border-color: var(--danger); }
+.toast-x {
+  background: none;
+  border: 0;
+  color: #fff;
+  font-weight: 900;
+  font-size: 1.05rem;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  margin-inline-start: 0.25rem;
+}
+
+/* ---------- floating edit tools on cards ---------- */
+.card-wrap { position: relative; }
+.edit-tools {
+  position: absolute;
+  inset-block-start: 0.7rem;
+  inset-inline-end: 0.7rem;
+  display: flex;
+  gap: 0.4rem;
+  z-index: 5;
+}
+.edit-tools .icon-btn {
+  background: var(--card);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  inline-size: 2.3rem;
+  block-size: 2.3rem;
+}
+.edit-tools .icon-btn:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--ink); }
+.edit-tools .icon-btn.danger { color: var(--danger); }
+
+/* ---------- inline rename ---------- */
+.renameable { cursor: text; }
+.renameable:hover { text-decoration: underline; text-decoration-color: var(--brand); text-decoration-thickness: 3px; text-underline-offset: 6px; }
+.rename-input { font: inherit; font-weight: inherit; max-inline-size: 100%; }
+
+/* ---------- upload progress ---------- */
+.upload-list { display: grid; gap: 0.6rem; margin-block: 0.75rem; }
+.upload-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+.upload-bar {
+  block-size: 0.9rem;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  background: var(--card);
+}
+.upload-bar > span {
+  display: block;
+  block-size: 100%;
+  inline-size: 0;
+  background: var(--brand);
+  transition: inline-size 0.2s ease;
+}
+.upload-err { color: var(--danger); }
+
+/* ---------- settings page ---------- */
+.set-section {
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: 18px;
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+  margin-block-end: 1.5rem;
+}
+.set-section > h2 { font-size: 1.5rem; margin-block-end: 0.25rem; }
+.set-section > p.set-desc { color: var(--muted); margin-block-end: 1rem; }
+.set-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.7rem;
+  border-block-end: 2px dotted var(--border);
+  flex-wrap: wrap;
+}
+.set-row:last-child { border-block-end: 0; }
+.set-row .row-main { font-weight: 700; }
+.set-row .row-sub { font-size: 0.88rem; color: var(--muted); font-weight: 400; }
+.set-actions { display: flex; gap: 0.45rem; flex: none; flex-wrap: wrap; }
+.set-grid { display: grid; gap: 0.9rem; }
+.set-grid .m-field { margin: 0; }
+.danger-zone { border-color: var(--danger); }
+.trash-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block-end: 1rem; }
+.trash-tab {
+  font: inherit;
+  font-weight: 800;
+  background: var(--card);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-pill);
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+}
+.trash-tab[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+/* small label above an edit control cluster */
+.edit-cluster-label {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-block: 1.5rem 0.75rem;
+}
+
+/* screen-reader-only text */
+.sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- row-level edit buttons (lesson rows, mini lists) ---------- */
+.row-edit {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex: none;
+}
+.icon-btn.sm {
+  inline-size: 2.1rem;
+  block-size: 2.1rem;
+}
+.icon-btn.sm svg { inline-size: 1rem; block-size: 1rem; }
+.icon-btn.danger { color: var(--danger); }
+.icon-btn.danger:hover { background: var(--danger); border-color: var(--danger); color: #fff; }
+
+/* cluster of "+ Add" buttons above a list */
+.edit-cluster {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-block-end: 1.5rem;
+}
+.edit-cluster .btn svg { inline-size: 1.1rem; block-size: 1.1rem; }
+.manage-link {
+  margin-block: -0.25rem 1.25rem;
+  font-weight: 700;
+}
+.manage-link a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--brand);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
+}
+
+/* chapter heading tools sit beside the title */
+.chapter-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.ch-del { margin-inline-start: 0.75rem; }
+
+/* upload hint under the Files heading */
+.upload-hint {
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin-block-end: 0.75rem;
+}
+
+/* file-card edit delete button alignment */
+.file-card .icon-btn.danger { flex: none; }
+
+/* mini-list rows with a delete button */
+.mini-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}

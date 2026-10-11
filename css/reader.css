@@ -1,0 +1,213 @@
+/* Reader: PDF viewer, written-lesson article, reading controls. */
+
+/* The reader is the biggest thing on the lesson page */
+.reader-shell {
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+/* ---------- PDF toolbar: white, black rule, pill buttons ---------- */
+.pdf-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.6rem;
+  padding: 0.6rem 0.8rem;
+  border-block-end: 2px solid var(--ink);
+  background: var(--card);
+  position: sticky;
+  inset-block-start: 4.4rem; /* sits under the sticky site header */
+  z-index: 20;
+}
+.pdf-toolbar .tb-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.pdf-toolbar .tb-sep {
+  inline-size: 2px;
+  block-size: 1.6rem;
+  background: var(--ink);
+  margin-inline: 0.25rem;
+  opacity: 0.25;
+}
+.pdf-toolbar .tb-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.pdf-toolbar .tb-percent { min-inline-size: 3.2rem; text-align: center; font-variant-numeric: tabular-nums; font-weight: 800; }
+.pdf-toolbar input.tb-page {
+  inline-size: 3.75rem;
+  min-height: 2.5rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+.pdf-toolbar .tb-spacer { flex: 1; }
+.pdf-toolbar .btn { min-height: 2.5rem; padding: 0.4rem 1.1rem; }
+
+/* Pages: lazy-rendered canvases, each reserving its own space */
+.pdf-pages {
+  background: var(--paper);
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: center;
+  max-block-size: 82vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.pdf-page {
+  background: #fff; /* paper pages keep their own color, always */
+  border: 2px solid #161616;
+  box-shadow: 4px 4px 0 rgba(22, 22, 22, 0.85);
+  inline-size: 100%;
+  max-inline-size: 52rem;
+}
+.pdf-page canvas { inline-size: 100%; block-size: auto; }
+.pdf-page .page-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--faint);
+  font-size: 0.9rem;
+  font-weight: 600;
+  min-block-size: 8rem;
+}
+
+/* Fullscreen reading */
+.reader-shell:fullscreen {
+  border-radius: 0;
+  border-inline: 0;
+  display: flex;
+  flex-direction: column;
+}
+.reader-shell:fullscreen .pdf-pages { max-block-size: none; flex: 1; }
+
+/* Loading / error states */
+.reader-status {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--muted);
+  font-weight: 600;
+}
+.reader-error { margin: 1rem; }
+
+/* Native PDF fallback: the browser's built-in viewer, embedded on-site. */
+.native-pdf {
+  inline-size: 100%;
+  block-size: min(82vh, 900px);
+  min-block-size: 480px;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--card);
+  display: block;
+}
+.reader-fallback-note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.9rem 1.1rem;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+.reader-fallback-actions { display: inline-flex; gap: 0.5rem; flex-wrap: wrap; }
+
+/* ---------- Written lessons: comfortable long-form reading ---------- */
+.reading-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-block-end: 1rem;
+}
+.reading-toolbar .device-note { margin-inline-start: auto; }
+
+.article {
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  padding: clamp(1.5rem, 4vw, 3rem);
+  box-shadow: var(--shadow-md);
+}
+.article-inner {
+  max-inline-size: var(--reading-measure);
+  margin-inline: auto;
+  font-size: calc(var(--reading-size) * var(--font-scale, 1));
+  line-height: 1.8;
+}
+/* Article headlines stay sentence-case and readable, not shouted */
+.article-inner h1, .article-inner h2, .article-inner h3 {
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1.25;
+  margin-block: 1.6em 0.6em;
+}
+.article-inner h1 { font-size: 1.9em; }
+.article-inner h2 { font-size: 1.45em; }
+.article-inner h3 { font-size: 1.2em; }
+.article-inner p { margin-block: 1em; }
+.article-inner ul, .article-inner ol { padding-inline-start: 1.5rem; margin-block: 1em; }
+.article-inner li { margin-block: 0.4em; }
+.article-inner a { overflow-wrap: anywhere; }
+.article-inner code {
+  font-family: ui-monospace, "Courier New", monospace;
+  font-size: 0.88em;
+  font-weight: 600;
+  background: var(--highlight-soft);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  padding: 0.1em 0.35em;
+}
+.article-inner blockquote {
+  border-inline-start: 6px solid var(--brand);
+  margin-inline: 0;
+  padding-inline-start: 1rem;
+  color: var(--muted);
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Font size controls */
+.font-controls { display: inline-flex; align-items: center; gap: 0.35rem; }
+.font-controls .font-sample { font-size: 0.9rem; color: var(--muted); padding-inline: 0.4rem; font-weight: 700; }
+
+/* ---------- Inline images in lessons ---------- */
+.lesson-image {
+  margin-block: 1.5rem;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.lesson-image img { inline-size: 100%; block-size: auto; }
+.lesson-image figcaption {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--muted);
+  padding: 0.6rem 1rem;
+  background: var(--card);
+  border-block-start: 2px solid var(--ink);
+}
+
+/* Lesson title block */
+.lesson-head h1 { font-size: clamp(2rem, 5vw, 3.2rem); margin-block-end: 0.5rem; }
+.lesson-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-block-end: 0.5rem;
+}
